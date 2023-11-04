@@ -1,0 +1,217 @@
+<div appMyCustom>
+  Hover over me to see the effect
+</div>
+
+<div>
+  <label> Enter Mobile Number</label>
+  <input type="text"  type-mobile [(ngModel)]="mobilenumber" [phone_number]="mobilenumber"  (change)="OnInputMobileNum($event)" (number_length)="number_length=$event"  (number_starts_with)="number_starts=$event" >
+</div>
+
+<div>
+  <label>Testing for something</label>
+  <input autocomplete="off" type="text" [(ngModel)]="test" required #vari="ngModel">
+  <div *ngIf="vari.errors?.['required']">
+    <small>Enter something</small>
+  </div>
+</div>
+
+
+<h1>welcome</h1>
+<label>first name</label><br />
+<input type="text" value="{{Fname}}" /><br />
+<span></span>
+<label>last name</label><br />
+<input type="text" value="{{Lname}}" /><br />
+
+<label>first name</label><br />
+<input type="text" [value]="Fname" /><br />
+<label>last name</label><br />
+<input type="text" [value]="Lname" /><br />
+
+<h2>2way binding </h2><br />
+<label>first name</label><br />
+<input [(ngModel)]="firstname" /><br />
+<label>last name</label><br />
+<input [(ngModel)]="lastname" /><br />
+<br />
+
+<label> first name: {{firstname}}</label><br />
+<label>last name: {{lastname}}</label><br />
+<br />
+<!-- hide/show  -->
+
+<h2>ngif</h2>
+<div>
+  <label>show/hide</label><br/>
+
+  <button type="button" (click)="show()">show</button>
+  <button type="button" (click)="hide()">hide</button><br />
+  <div *ngIf="x">
+    <input type="text" [value]="sname" /><br />
+  </div>
+  <br />
+  <h1>using style</h1>
+  <div>
+    <button type="button" (click)="display()">show/hide</button><br />
+    <label [ngClass]="y===true?'show':'hide'">hell0</label>
+  </div><br />
+  <h1>showing element of array</h1>
+  <!-- <div *ngFor="let item of array">
+    <label>{{item}}</label> -->
+  <!-- </div> -->
+  <div *ngFor="let items of xyz">
+    <label [ngClass]="items%2==0?'firstcolour':'secondcolour'">{{items}}</label>
+    <!-- <label *ngIf="items%2!=0" class="secondcolour">{{items}}</label> -->
+  </div>
+</div>
+<br />
+<div>
+  <h1>colour change</h1>
+  <label [ngClass]="z==true?'firstcolour':'secondcolour'">hello</label><br />
+  <button type="button" (click)="colourchange()">red</button>
+  <button type="button" (click)="colourchange1()">blue</button><br />
+</div>
+
+<h1>showing object data</h1>
+<div>
+  <!-- <label> Name:{{student.name}}&nbsp;&nbsp;&nbsp;</label> <label>  Class:{{student.class}}&nbsp;&nbsp;&nbsp;  </label><label>  Rollno:{{student.rollno}}</label> -->
+  <table class="table border border-dark table-hover">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">class</th>
+        <th scope="col">rollno</th>
+        <th scope="col">action</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let student of studentdetail">
+        <td scope="row">{{student.id}}</td>
+        <td scope="row">{{student.name}}</td>
+        <td scope="row">{{student.class}}</td>
+        <td scope="row">{{student.rollno}}</td>
+        <td> <button type="button"  (click)="edit(student.id)">Edit</button></td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Start Edit popup -->
+<div *ngIf="is_edit">
+  <table class="table border border-dark table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">class</th>
+      <th scope="col">rollno</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">{{_name}}</td>
+      <td scope="row">{{_class}}</td>
+      <td scope="row">{{_rollno}}</td>
+
+    </tr>
+  </tbody>
+ 
+   </table> 
+    </div>
+
+<div>
+  <div *ngIf="is_odd ==false && is_even ==false && is_prime ==false">
+    <h1>Number 1 to 20</h1>
+    <p *ngFor="let item of numbers">{{item}}</p>
+
+  </div>
+
+
+
+  <div *ngIf="is_odd ==true && is_even ==false && is_prime ==false">
+    <h1>Number 1 to 20</h1>
+    <h6 *ngFor="let item of numbers">
+      <p *ngIf="item % 2 != 0" style="color: blue;">{{item}} </p>
+      <p *ngIf="item% 2 ==0">{{item}}</p>
+    </h6>
+  </div>
+
+  <div *ngIf="is_odd ==false && is_even ==true && is_prime ==false">
+    <h1>Number 1 to 20</h1>
+    <h6 *ngFor="let item of numbers">
+      <p *ngIf="item % 2 != 0">{{item}} </p>
+      <p *ngIf="item% 2 ==0" style="color: red;">{{item}}</p>
+    </h6>
+
+  </div>
+
+  <div *ngIf="is_odd ==false && is_even ==false && is_prime ==true">
+
+    <h1>Number 1 to 20</h1>
+    <h6 *ngFor="let item of numbers">
+      
+      <p *ngIf="isPrime(item)" style="color: green;">{{ item }}</p>
+      <p *ngIf="!isPrime(item) " >{{ item }}</p>
+
+    </h6>
+
+  </div>
+
+  <div *ngIf="is_odd ==true && is_even ==true && is_prime ==false">
+    <h1>Number 1 to 20</h1>
+    <h6 *ngFor="let item of numbers">
+      <p *ngIf="item % 2 != 0" style="color: blue;">{{item}} </p>
+      <p *ngIf="item% 2 ==0" style="color: red;">{{item}}</p>
+    </h6>
+
+  </div>
+
+  <div *ngIf="is_odd ==true && is_even ==true && is_prime ==true">
+    <h1>Number 1 to 20</h1>
+    <h6 *ngFor="let item of numbers">
+      <p *ngIf="isPrime(item)" style="color: green;">{{ item }}</p>
+      <div *ngIf="!isPrime(item)" >
+        <p *ngIf="item % 2 != 0" style="color: blue;">{{item}} </p>
+         <p  *ngIf="item% 2 ==0" style="color: red;">{{item}}</p>
+      </div>
+      
+    </h6>
+
+  </div>
+</div>
+
+<button (click)="even()">even</button>
+<button (click)="odd()">odd</button>
+<button (click)="prime()">prime</button>
+
+<h1>creating new logic code here</h1>
+
+
+
+<button (click)="start()">start</button>
+<button (click)="end()">end</button>
+
+
+
+<div *ngIf="open_div===true">
+  <div *ngFor="let item of counts">
+    <div *ngIf="(item%2==0)==true">
+    even-{{item}}
+    </div>
+    <div *ngIf="(item%2==0)==false">
+    odd-{{item}}
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+   
